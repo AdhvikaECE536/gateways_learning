@@ -1,0 +1,84 @@
+The OSI model is a 7-layer framework that describes how data travels from one computer to another. It is designed so that each layer only worries about the requirement of its layer and relies on teh layer below it to handle everything lower.
+
+When data is sent, it travels down the stack (L7 -> L1), where each layer wraps data with its own header. This is called encapsulation. 
+On the receiving end, it travels up (L1 -> L7), where each layer strips its header and hands it up. This is called decapsulation.
+
+<img width="697" height="446" alt="image" src="https://github.com/user-attachments/assets/93947c30-c4f8-487b-908f-08b9bb806979" />
+
+The three major groupings are:
+
+- L7-L5: application layers:
+  software handles these
+- L4: heart:
+  TCP/UDP, ports, reliability
+- L3-L1: network/hardware layers:
+  routers, switches, cables
+
+### L7: Application 
+
+- it interacts directly with software applications to provide communication services. It identifies communication partners, determines resource availability, and synchronizes communication
+- defines the rules for the conversation: what a request looks like, what a response looks like, error codes, headers
+- Key Protocols: HTTP, HTTPS, FTP, SMTP
+- Core Functions: User authentication, data privacy, and service advertisement
+- Devices at this Layer: Web browsers, Email clients, API gateways, Application servers
+
+### L6: Presentation
+
+- it is the translator layer; converts data between the format the application uses and a format suitable for transmission (and back again on receipt)
+- in modern protocols often merge L6 and L7 — TLS for example is sometimes called a session-layer protocol
+- Key Protocols: TLS, SSL, JPEG, MPEG
+- Core Functions: Data encryption/decryption (SSL/TLS), compression to optimize bandwidth, and formatting (converting EBCDIC to ASCII)
+- Devices at this Layer: SSL termination proxies, Gateways doing encryption
+
+Three jobs: 
+- translation (e.g. ASCII to EBCDIC)
+- encryption/decryption (TLS lives conceptually here)
+- compression
+
+### L5: Session
+
+- creates, manages, and terminates conversational sessions between two distinct endpoints. It acts as the coordinator that keeps data streams separated
+- in modern TCP/IP stacks, L5 is often handled by the application or transport layer. But in older systems (and VoIP), it's a distinct function
+- Key Protocols: NetBIOS, RPC, SIP, H.245
+- Core Functions: Establishing connections, managing authentication, handling authorization, and inserting checkpoints to resume interrupted transfers
+- Devices at this Layer: Session border controllers, VoIP call managers
+
+### L4: Transport
+
+- manages the end-to-end delivery of data across a network. Gets data reliably from one process to another across a network
+- handles port numbers (which application gets the data?), flow control (don't overwhelm the receiver), congestion control, and segmentation (splitting large data into smaller chunks)
+- Key Protocols: TCP, UDP, SCTP, DCCP
+- Core Functions: Segmentation of large data files, flow control to prevent receiver overload, and error correction.
+- Devices at this Layer: Firewalls (stateful), Load balancers, NAT devices
+
+two protocols dominate:
+- TCP (reliable, ordered, error-checked — used for HTTP, SSH, FTP)
+- UDP (fast, connectionless, no guarantee — used for video, DNS, gaming)
+
+### L3: Network
+
+- determines the best physical path for data to travel from its source to its destination across multiple interconnected networks
+- Every router on the internet operates at L3. It strips the L2 frame, reads the destination IP, consults the routing table, and forwards the packet to the next hop
+- Key Protocols: IPv4, IPv6, ICMP, OSPF
+- Core Functions: Logical addressing (assigning IP addresses) and routing (using algorithms to select the optimal data path)
+- Devices at this Layer: Routers, Layer 3 switches, Firewalls, Gateways
+
+### L2: Data Link
+
+- The Data Link Layer establishes a reliable link across a single physical network link. It handles error correction from the physical layer and manages hardware access
+- Key Protocols: Ethernet (802.3), Wi-Fi (802.11), PPP, HDLC
+- Core Functions: Physical addressing (MAC addresses), frame synchronization, and media access control
+- Devices at this Layer: Switches, Bridges, NICs, Wi-Fi access points
+
+2 sub-layers:
+
+- MAC (Media Access Control — controls how devices share the physical medium, handles collisions)
+- LLC (Logical Link Control — error detection, flow control)
+
+### L1: Physical
+
+- The physical transmission of raw bits over a medium
+- It defines: voltage levels (what is a 1? what is a 0?), pin layouts, cable specs, timing of bit transmission, modulation schemes (how bits are encoded onto a signal)
+- Key Protocols: USB, Bluetooth (PHY), DSL, SONET/SDH
+- Core Functions: Converting digital bits into electrical, radio, or optical signals, defining pin configurations, and cable specifications
+- Devices at this Layer: Hubs, Repeaters, Cables, Fiber, Modems, Antennas
